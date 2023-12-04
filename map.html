@@ -23,9 +23,11 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+		<script src="leaflet.ajax.js"></script>
 	<script>
-		// yogyakarta
-		var map = L.map('map').setView([-7.797068, 110.370529], 13);
+		
+		// Pasuruan
+		var map = L.map('map').setView([-7.745262413534455, 112.85409797803833], 11);
 
 		// basemap
 		var basemap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,7 +57,7 @@
 					});
 				},
 			});
-			$.getJSON("https://script.google.com/macros/s/AKfycbwbFWEPJ9FEJw1aVIjRXCY-HffGAsBKp6dixOxQtKItpUvVNQHI9pbUrqWLAFbBmliE/exec", function (data) {
+			$.getJSON("https://script.google.com/macros/s/AKfycbxr23ib9KkI5THzJC_zNyim9cJRgIOtcDDlksWHvlwzqkC_hy61XnvCRybl_hoxNKQ0/exec", function (data) {
 				point.addData(data);
 				map.addLayer(point);
 				map.fitBounds(point.getBounds());
@@ -63,6 +65,18 @@
 		}
 
 		loadlayer();
+
+		
+function popUp(f,l){
+    var out = [];
+    if (f.properties){
+        for(key in f.properties){
+            out.push(key+": "+f.properties[key]);
+        }
+        l.bindPopup(out.join("<br />"));
+    }
+}
+var jsonTest = new L.GeoJSON.AJAX(["Pasuruan.geojson",],{onEachFeature:popUp}).addTo(map);
 	</script>
 </body>
 </html>
